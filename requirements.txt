@@ -1,0 +1,28 @@
+# NexusShield GNN Fraud Ring Detector - Dependencies
+# TODO: Add actual dependency versions
+
+# Core ML/DL
+# torch>=1.12.0
+# torch-geometric>=2.0.0
+
+# Data processing
+# pandas>=1.3.0
+# numpy>=1.21.0
+# pyarrow>=6.0.0  # For Parquet support
+
+# ML utilities
+# scikit-learn>=1.0.0
+
+# Visualization
+# matplotlib>=3.5.0
+# seaborn>=0.11.0
+
+# Configuration
+# pyyaml>=6.0
+
+# Development (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
+# jupyter>=1.0.0
+

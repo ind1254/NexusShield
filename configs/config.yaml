@@ -1,0 +1,106 @@
+# NexusShield GNN Fraud Ring Detector - Configuration
+
+# Data paths
+data:
+  raw_dir: "data/raw"
+  interim_dir: "data/interim"
+  processed_dir: "data/processed"
+  
+  # File names
+  transactions_file: "transactions.csv"
+  accounts_file: "accounts.csv"
+  devices_file: "devices.csv"
+  merchants_file: "merchants.csv"
+  labels_file: "labels.csv"  # Optional
+
+# Model configuration
+model:
+  # Node feature dimensions (to be inferred from data or specified)
+  node_feature_dims:
+    account: 50  # TODO: Update based on actual features
+    device: 30
+    transaction: 20
+    merchant: 15
+  
+  # Embedding dimensions
+  embedding_dim: 128
+  hidden_dims: [256, 128, 64]
+  
+  # GNN architecture
+  num_gnn_layers: 3
+  gnn_type: "gat"  # Options: "gcn", "gat", "graphsage"
+  gat_heads: 4  # For GAT layers
+  graphsage_num_samples: 5  # For GraphSAGE layers
+  
+  # Classifier heads
+  num_classes: 2  # Binary classification (fraud/legitimate)
+  classifier_hidden_dims: [64, 32]
+  dropout: 0.5
+
+# Training configuration
+training:
+  task: "node_classification"  # Options: "node_classification", "link_prediction"
+  
+  # Data splitting
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  
+  # Training hyperparameters
+  num_epochs: 100
+  learning_rate: 0.001
+  batch_size: 32
+  weight_decay: 0.0001
+  
+  # Optimization
+  optimizer: "adam"  # Options: "adam", "sgd"
+  scheduler: "step"  # Options: "step", "cosine", "plateau"
+  scheduler_step_size: 30
+  scheduler_gamma: 0.1
+  
+  # Early stopping
+  early_stopping: true
+  early_stopping_patience: 10
+  early_stopping_min_delta: 0.001
+  
+  # Checkpointing
+  checkpoint_dir: "checkpoints"
+  save_best_only: true
+  save_frequency: 10  # Save every N epochs
+
+# Evaluation configuration
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "auc_roc"
+    - "auc_pr"
+  
+  # Fraud ring detection
+  fraud_ring:
+    enabled: true
+    min_ring_size: 3
+    risk_threshold: 0.7
+
+# Inference configuration
+inference:
+  model_path: "checkpoints/best_model.pth"
+  device: "cuda"  # Options: "cuda", "cpu"
+  batch_size: 64
+  threshold: 0.5
+
+# Logging configuration
+logging:
+  log_dir: "logs"
+  log_level: "INFO"
+  log_file: "nexusshield.log"
+
+# Visualization configuration
+visualization:
+  save_dir: "visualizations"
+  embedding_method: "tsne"  # Options: "tsne", "umap"
+  figure_format: "png"
+  dpi: 300
+
